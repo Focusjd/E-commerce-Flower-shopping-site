@@ -1,11 +1,16 @@
 
-create database flowerDB;
-use flowerDB;
+create database flowerDBtest;
+use flowerDBtest;
 create table users(
                       user_id int primary key auto_increment,
                       userName char (40) not null unique,
                       password char (40) not null,
                       userEmail char(40) null
+);
+create table admin(
+                      user_id int primary key auto_increment,
+                      userName char (40) not null unique,
+                      password char (40) not null
 );
 
 create table category(
@@ -26,13 +31,13 @@ create table product(
                         product_sales int,
                         constraint FK_product_category foreign key (category_id) references category (category_id)
 );
-create table product_picture(
-                                id int primary key auto_increment,
-                                product_id int not null,
-                                product_picture char (200),
-                                intro text null,
-                                constraint FK_product_id foreign key (product_id) references product (product_id)
-);
+-- create table product_picture(
+--                                 id int primary key auto_increment,
+--                                 product_id int not null,
+--                                 product_picture char (200),
+--                                 intro text null,
+--                                 constraint FK_product_id foreign key (product_id) references product (product_id)
+-- );
 create table shoppingCart(
                              id int primary key auto_increment,
                              user_id int not null,
@@ -62,3 +67,4 @@ create table collect(
                         constraint FK_collect_user_id foreign key (user_id) references users (user_id),
                         constraint FK_collect_id foreign key (product_id) references product (product_id)
 );
+INSERT INTO admin values ("1", "admin", "admin");
