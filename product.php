@@ -16,8 +16,8 @@ function main(){
         case "getProductById":
             getProductById($mysqli, $res);
             break;
-        case "addProducts":
-            addProducts($mysqli, $res);
+        case "addProduct":
+            addProduct($mysqli, $res);
             break;
         case "editProduct":
             editProduct($mysqli, $res);
@@ -27,6 +27,9 @@ function main(){
             break;
         case "searchProductByName":
             searchProductByName($mysqli, $res);
+            break;
+        case "getProductByCategory":
+            getProductByCategory($mysqli, $res);
             break;
         default:
             errorMsgManager($res, "Not supported interface");
@@ -38,6 +41,20 @@ function main(){
     echo json_encode($res);
     die();
 }
+
+    function getProductByCategory($mysqli, &$res)
+    {
+        $category_id = $_POST['category_id'];
+        $Q = "SELECT * FROM product WHERE category_id = '$category_id'";
+        $result = $mysqli->query($Q);
+
+        $products = array();
+        while ($row = $result->fetch_assoc()){
+            $products[] = $row;
+        }
+        $res['products'] = $products;
+        msgManager($res,$result);
+    }
 
     function searchProductByName($mysqli, &$res)
     {
@@ -109,7 +126,7 @@ function main(){
         msgManager($res,$result);
     }
 
-    function addProducts($mysqli, &$res)
+    function addProduct($mysqli, &$res)
     {
         $product_name = $_POST['product_name'];
         $category_id = $_POST['category_id'];
