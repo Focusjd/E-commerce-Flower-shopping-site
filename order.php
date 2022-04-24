@@ -37,8 +37,8 @@
 
     function deleteOrder($mysqli, &$res)
     {
-        if(!loginStatus()){
-            errorMsgManager($res, "Permission Deny, Login Required.");
+        if(!adminStatus()&&!loginStatus()){
+            errorMsgManager($res, "Permission Deny, User or Admin Login Required.");
             return;
         }
         $order_id = $_POST['order_id'];
@@ -50,8 +50,8 @@
 
     function editOrder($mysqli, &$res)
     {
-        if(!loginStatus()){
-            errorMsgManager($res, "Permission Deny, Login Required.");
+        if(!adminStatus()&&!loginStatus()){
+            errorMsgManager($res, "Permission Deny, User or Admin Login Required.");
             return;
         }
         $order_id = $_POST["order_id"];
@@ -71,8 +71,8 @@
 
     function createOrder($mysqli, &$res)
     {
-        if(!loginStatus()){
-            errorMsgManager($res, "Permission Deny, Login Required.");
+        if(!adminStatus()&&!loginStatus()){
+            errorMsgManager($res, "Permission Deny, User or Admin Login Required.");
             return;
         }
         $order_id = rand(1000000000, 9999999999);
@@ -95,8 +95,8 @@
 
     function getOrderById($mysqli, &$res)
     {
-        if(!loginStatus()){
-            errorMsgManager($res, "Permission Deny, Login Required.");
+        if(!adminStatus()&&!loginStatus()){
+            errorMsgManager($res, "Permission Deny, User or Admin Login Required.");
             return;
         }
         $order_id = $_POST['order_id'];
@@ -110,8 +110,8 @@
 
     function getUserOrders($mysqli, &$res)
     {
-        if(!loginStatus()){
-            errorMsgManager($res, "Permission Deny, Login Required.");
+        if(!adminStatus()&&!loginStatus()){
+            errorMsgManager($res, "Permission Deny, User or Admin Login Required.");
             return;
         }
         $user_id = $_POST["user_id"];

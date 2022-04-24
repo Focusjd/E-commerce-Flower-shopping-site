@@ -46,6 +46,10 @@ function main(){
 
     function deleteCategory($mysqli, &$res)
     {
+        if(!adminStatus()){
+            errorMsgManager($res, "Permission Deny, Admin Login Required.");
+            return;
+        }
         $category_id = $_POST['category_id'];
         $Q = "DELETE FROM category WHERE category_id = '$category_id'";
         $result = $mysqli->query($Q);
@@ -55,6 +59,10 @@ function main(){
 
     function editCategory($mysqli, &$res)
     {
+        if(!adminStatus()){
+            errorMsgManager($res, "Permission Deny, Admin Login Required.");
+            return;
+        }
         $category_id = $_POST["category_id"];
         $category_name = $_POST["category_name"];
 
@@ -69,6 +77,10 @@ function main(){
 
     function addCategory($mysqli, &$res)
     {
+        if(!adminStatus()){
+            errorMsgManager($res, "Permission Deny, Admin Login Required.");
+            return;
+        }
         $category_name = $_POST["category_name"];
 
         $Q = "INSERT INTO category 

@@ -37,7 +37,7 @@ require './utils.php';
     function getCollectById($mysqli, &$res)
     {
         if(!loginStatus()){
-            errorMsgManager($res, "Permission Deny, Login Required.");
+            errorMsgManager($res, "Permission Deny, User Login Required.");
             return;
         }
         $id = $_POST['id'];
@@ -52,7 +52,7 @@ require './utils.php';
     function getUserCollects($mysqli, &$res)
     {
         if(!loginStatus()){
-            errorMsgManager($res, "Permission Deny, Login Required.");
+            errorMsgManager($res, "Permission Deny, User Login Required.");
             return;
         }
         $user_id = $_POST["user_id"];
@@ -71,7 +71,7 @@ require './utils.php';
     function deleteCollect($mysqli, &$res)
     {
         if(!loginStatus()){
-            errorMsgManager($res, "Permission Deny, Login Required.");
+            errorMsgManager($res, "Permission Deny, User Login Required.");
             return;
         }
         $id = $_POST['id'];
@@ -89,7 +89,7 @@ require './utils.php';
     function addCollect($mysqli, &$res)
     {
         if(!loginStatus()){
-            errorMsgManager($res, "Permission Deny, Login Required.");
+            errorMsgManager($res, "Permission Deny, User Login Required.");
             return;
         }
 

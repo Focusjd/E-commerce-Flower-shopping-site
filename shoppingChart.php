@@ -37,7 +37,7 @@
     function getChartById($mysqli, &$res)
     {
         if(!loginStatus()){
-            errorMsgManager($res, "Permission Deny, Login Required.");
+            errorMsgManager($res, "Permission Deny, User Login Required.");
             return;
         }
         $id = $_POST['id'];
@@ -52,7 +52,7 @@
     function getUserCharts($mysqli, &$res)
     {
         if(!loginStatus()){
-            errorMsgManager($res, "Permission Deny, Login Required.");
+            errorMsgManager($res, "Permission Deny, User Login Required.");
             return;
         }
         $user_id = $_POST["user_id"];
@@ -71,7 +71,7 @@
     function deleteChart($mysqli, &$res)
     {
         if(!loginStatus()){
-            errorMsgManager($res, "Permission Deny, Login Required.");
+            errorMsgManager($res, "Permission Deny, User Login Required.");
             return;
         }
         $id = $_POST['id'];
@@ -84,7 +84,7 @@
     function editChart($mysqli, &$res)
     {
         if(!loginStatus()){
-            errorMsgManager($res, "Permission Deny, Login Required.");
+            errorMsgManager($res, "Permission Deny, User Login Required.");
             return;
         }
         $id = $_POST["id"];
@@ -108,7 +108,7 @@
     function addChart($mysqli, &$res)
     {
         if(!loginStatus()){
-            errorMsgManager($res, "Permission Deny, Login Required.");
+            errorMsgManager($res, "Permission Deny, User Login Required.");
             return;
         }
 

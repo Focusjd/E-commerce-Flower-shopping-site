@@ -29,6 +29,10 @@ function test($mysqli, &$res){
 
 
     function getAllUsers($mysqli, &$res){
+        if(!adminStatus()){
+            errorMsgManager($res, "Permission Deny, Admin Login Required.");
+            return;
+        }
         $Q = "SELECT * FROM users";
         $result = $mysqli->query($Q);
 
@@ -41,6 +45,10 @@ function test($mysqli, &$res){
 
 
     function addUser($mysqli, &$res){
+        if(!adminStatus()){
+            errorMsgManager($res, "Permission Deny, Admin Login Required.");
+            return;
+        }
         $username = $_POST['username'];
         $password = $_POST['password'];
         $email = $_POST['email'];
@@ -52,6 +60,10 @@ function test($mysqli, &$res){
 
 
     function editUser($mysqli, &$res){
+        if(!adminStatus()){
+            errorMsgManager($res, "Permission Deny, Admin Login Required.");
+            return;
+        }
         $user_id = $_POST['user_id'];
         $username = $_POST['username'];
         $password = $_POST['password'];
@@ -63,6 +75,10 @@ function test($mysqli, &$res){
     }
 
     function deleteUser($mysqli, &$res){
+        if(!adminStatus()){
+            errorMsgManager($res, "Permission Deny, Admin Login Required.");
+            return;
+        }
         $user_id = $_POST['user_id'];
         $Q = "DELETE FROM users  WHERE user_id = '$user_id'";
         $result = $mysqli->query($Q);

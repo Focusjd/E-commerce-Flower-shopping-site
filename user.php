@@ -24,6 +24,12 @@
             case "adminLogin":
                 adminLogin($mysqli,$res);
                 break;
+            case "adminLoginChecker":
+                adminLoginChecker($res);
+                break;
+            case "adminLogout":
+                adminLogout($res);
+                break;
             default:
                 errorMsgManager($res, "Not supported interface");
         }
@@ -36,7 +42,27 @@
 
     function adminLogin($mysqli, &$res)
     {
+        $password = $_POST["password"];
+        $username = $_POST["username"];
 
+        $Q = "SELECT * FROM admin WHERE `password` = '$password' AND `username` = '$username'";
+        $result = $mysqli->query($Q);
+
+
+        if ($result->num_rows>0) {
+            session_start();
+            $_SESSION["admin"] = true;
+
+            $lifeTime = 5 * 3600;
+
+            setcookie(session_name(), session_id(), time() + $lifeTime, "/");
+
+            msgManager($res,true);
+            $res['login_admin'] = $result->fetch_assoc();
+        } else {
+            $msg = "Wrong username password matching";
+            errorMsgManager($res, $msg);
+        }
     }
 
 function userLogin($mysqli, &$res){
@@ -57,7 +83,7 @@ function userLogin($mysqli, &$res){
 
         if ($result->num_rows>0) {
             session_start();
-            $_SESSION["admin"] = true;
+            $_SESSION["user"] = true;
             //  保存一天
             $lifeTime = 24 * 3600;
 
@@ -73,19 +99,29 @@ function userLogin($mysqli, &$res){
 
     function userLogout(&$res){
         session_start();
+        unset($_SESSION['user']);
+        session_destroy();
+        msgManager($res,true);
+    }
+
+    function adminLogout(&$res){
+        session_start();
         unset($_SESSION['admin']);
         session_destroy();
         msgManager($res,true);
     }
 
     function userLoginChecker(&$res){
-        loginStatus()?msgManager($res,true):errorMsgManager($res, "Permission Deny, Login Required.");
+        loginStatus()?msgManager($res,true):errorMsgManager($res, "Permission Deny, User Login Required.");
+    }
+    function adminLoginChecker(&$res){
+        adminStatus()?msgManager($res,true):errorMsgManager($res, "Permission Deny, Admin Login Required.");
     }
 
 
     function getUserInfoById($mysqli, &$res){
         if(!loginStatus()){
-            errorMsgManager($res, "Permission Deny, Login Required.");
+            errorMsgManager($res, "Permission Deny, User Login Required.");
             return;
         }
         $user_id = $_POST['user_id'];

@@ -88,6 +88,10 @@ function main(){
 
     function deleteProduct($mysqli, &$res)
     {
+        if(!adminStatus()){
+            errorMsgManager($res, "Permission Deny, Admin Login Required.");
+            return;
+        }
         $product_id = $_POST['product_id'];
         $Q = "DELETE FROM product  WHERE product_id = '$product_id'";
         $result = $mysqli->query($Q);
@@ -97,6 +101,10 @@ function main(){
 
     function editProduct($mysqli, &$res)
     {
+        if(!adminStatus()){
+            errorMsgManager($res, "Permission Deny, Admin Login Required.");
+            return;
+        }
 
         $product_id = $_POST['product_id'];
         $product_name = $_POST['product_name'];
@@ -128,6 +136,10 @@ function main(){
 
     function addProduct($mysqli, &$res)
     {
+        if(!adminStatus()){
+            errorMsgManager($res, "Permission Deny, Admin Login Required.");
+            return;
+        }
         $product_name = $_POST['product_name'];
         $category_id = $_POST['category_id'];
         $product_title = (isset($_POST['product_title']))?$_POST['product_title']:"";

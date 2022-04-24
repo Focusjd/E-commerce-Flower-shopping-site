@@ -38,13 +38,24 @@
 
     function loginStatus(): bool
     {
-        $admin = false;
+        $user = false;
         $login_flag = false;
         session_start();
 
-        (isset($_SESSION["admin"]) && $_SESSION["admin"] === true)?$login_flag = true:$_SESSION["admin"] = false;
+        (isset($_SESSION["user"]) && $_SESSION["user"] === true)?$login_flag = true:$_SESSION["user"] = false;
 
         return $login_flag;
+    }
+
+    function adminStatus(): bool
+    {
+        $admin = false;
+        $admin_flag = false;
+        session_start();
+
+        (isset($_SESSION["admin"]) && $_SESSION["admin"] === true)?$admin_flag = true:$_SESSION["admin"] = false;
+
+        return $admin_flag;
     }
 
 
@@ -52,7 +63,7 @@
         //  启动 Session
         session_start();
         //  声明一个名为 admin 的变量，并赋空值。
-        $_SESSION["admin"] = null;
+        $_SESSION["user"] = null;
     }
 
 ?>
