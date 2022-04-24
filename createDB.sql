@@ -46,9 +46,11 @@ create table orders(
                        order_id bigint not null,
                        user_id int not null,
                        product_id int not null,
-                       product_num int not null,
-                       product_price double not null,
+                       product_num int,
+                       product_price double,
                        order_time bigint not null,
+                       shipping_info char (100),
+                       payment_info char (100),
                        constraint FK_order_user_id foreign key (user_id) references users (user_id),
                        constraint FK_order_id foreign key (product_id) references product (product_id)
 );

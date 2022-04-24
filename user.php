@@ -75,15 +75,7 @@
         loginStatus()?msgManager($res,true):errorMsgManager($res, "Permission Deny, Login Required.");
     }
 
-    function loginStatus(){
-        $admin = false;
-        $login_flag = false;
-        session_start();
 
-        (isset($_SESSION["admin"]) && $_SESSION["admin"] === true)?$login_flag = true:$_SESSION["admin"] = false;
-
-        return $login_flag;
-    }
 
 
     function getUserInfoById($mysqli, &$res){

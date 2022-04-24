@@ -25,6 +25,9 @@ function main(){
         case "deleteProduct":
             deleteProduct($mysqli, $res);
             break;
+        case "searchProductByName":
+            searchProductByName($mysqli, $res);
+            break;
         default:
             errorMsgManager($res, "Not supported interface");
     }
@@ -35,6 +38,23 @@ function main(){
     echo json_encode($res);
     die();
 }
+
+    function searchProductByName($mysqli, &$res)
+    {
+        $search_name = $_POST['$search_name'];
+        $Q = "SELECT * FROM product WHERE product_name like '$search_name%'";
+        $result = $mysqli->query($Q);
+
+//        print_r($result->fetch_assoc());
+
+        $products = array();
+        while ($row = $result->fetch_assoc()){
+            $products[] = $row;
+        }
+        $res['products'] = $products;
+
+        msgManager($res,$result);
+    }
 
     function getProductById($mysqli, &$res)
     {
@@ -93,13 +113,13 @@ function main(){
     {
         $product_name = $_POST['product_name'];
         $category_id = $_POST['category_id'];
-        $product_title = (isset($_POST['product_title']))?$_POST['product_title']:null;
-        $product_intro = (isset($_POST['product_intro']))?$_POST['product_intro']:null;
-        $product_picture = (isset($_POST['product_picture']))?$_POST['product_picture']:null;
-        $product_price = (isset($_POST['product_price']))?$_POST['product_price']:null;
-        $product_selling_price = (isset($_POST['product_selling_price']))?$_POST['product_selling_price']:null;
-        $product_num = (isset($_POST['product_num']))?$_POST['product_num']:null;
-        $product_sales = (isset($_POST['product_sales']))?$_POST['product_sales']:null;
+        $product_title = (isset($_POST['product_title']))?$_POST['product_title']:"";
+        $product_intro = (isset($_POST['product_intro']))?$_POST['product_intro']:"";
+        $product_picture = (isset($_POST['product_picture']))?$_POST['product_picture']:"";
+        $product_price = (isset($_POST['product_price']))?$_POST['product_price']:-1;
+        $product_selling_price = (isset($_POST['product_selling_price']))?$_POST['product_selling_price']:-1;
+        $product_num = (isset($_POST['product_num']))?$_POST['product_num']:-1;
+        $product_sales = (isset($_POST['product_sales']))?$_POST['product_sales']:-1;
 
         $Q = "INSERT INTO product 
         (product_name, category_id, product_title, product_intro, product_picture, product_price, product_selling_price, product_num, product_sales) 
@@ -120,6 +140,7 @@ function main(){
             $products[] = $row;
         }
         $res['products'] = $products;
+        msgManager($res,$result);
     }
 
 

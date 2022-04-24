@@ -36,6 +36,17 @@
         $res ["message"] = $msg;
     }
 
+    function loginStatus(): bool
+    {
+        $admin = false;
+        $login_flag = false;
+        session_start();
+
+        (isset($_SESSION["admin"]) && $_SESSION["admin"] === true)?$login_flag = true:$_SESSION["admin"] = false;
+
+        return $login_flag;
+    }
+
 
     function sessionStart(){
         //  启动 Session
