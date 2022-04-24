@@ -1,6 +1,6 @@
 
-create database flowerDBtest;
-use flowerDBtest;
+create database flowerDB;
+use flowerDB;
 create table users(
                       user_id int primary key auto_increment,
                       userName char (40) not null unique,

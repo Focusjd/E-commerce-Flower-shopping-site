@@ -21,10 +21,12 @@
             case "getUserInfoById":
                 getUserInfoById($mysqli,$res);
                 break;
+            case "adminLogin":
+                adminLogin($mysqli,$res);
+                break;
             default:
                 errorMsgManager($res, "Not supported interface");
         }
-
 
         $mysqli->close();
         header("Content-type:application/json");
@@ -32,7 +34,12 @@
         die();
     }
 
-    function userLogin($mysqli, &$res){
+    function adminLogin($mysqli, &$res)
+    {
+
+    }
+
+function userLogin($mysqli, &$res){
         $password = $_POST["password"];
         $username = $_POST["username"];
 
@@ -74,8 +81,6 @@
     function userLoginChecker(&$res){
         loginStatus()?msgManager($res,true):errorMsgManager($res, "Permission Deny, Login Required.");
     }
-
-
 
 
     function getUserInfoById($mysqli, &$res){

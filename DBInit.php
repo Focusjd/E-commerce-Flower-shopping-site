@@ -3,7 +3,7 @@
 
     $_sql = file_get_contents('createDB.sql');
     $_arr = explode(';',$_sql);
-    $mysqli = new mysqli('localhost', "root","","flowerDB");
+    $mysqli = new mysqli('localhost', "root","");
     if($mysqli->connect_errno){
         die($mysqli->connect_error);
     }
