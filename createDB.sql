@@ -17,13 +17,13 @@ create table product(
                         product_id int primary key auto_increment,
                         product_name char (100) not null,
                         category_id int not null,
-                        product_title char (30) not null,
-                        product_intro text not null,
+                        product_title char (30),
+                        product_intro text ,
                         product_picture char (200),
-                        product_price double not null,
-                        product_selling_price double not null,
-                        product_num int not null,
-                        product_sales int not null,
+                        product_price double,
+                        product_selling_price double ,
+                        product_num int,
+                        product_sales int,
                         constraint FK_product_category foreign key (category_id) references category (category_id)
 );
 create table product_picture(
