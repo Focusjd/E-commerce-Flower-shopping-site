@@ -1,30 +1,40 @@
 <?php
     require './utils.php';
 
-    $mysqli = dbInit();
-    $action = "";
-    $res = array('error'=>false);
-    APIChecker($action, $res);
+    function main(){
+        $mysqli = dbInit();
+        $action = "";
+        $res = array('error'=>false);
+        APIChecker($action, $res);
 
 
-    switch ($action){
-        case "userLogin":
-            userLogin($mysqli, $res);
-            break;
-        case "userLogout":
-            userLogout($res);
-            break;
-        case "userLoginChecker":
-            userLoginChecker($res);
-            break;
-        default:
-            errorMsgManager($res, "Not supported interface");
+        switch ($action){
+            case "userLogin":
+                userLogin($mysqli, $res);
+                break;
+            case "userLogout":
+                userLogout($res);
+                break;
+            case "userLoginChecker":
+                userLoginChecker($res);
+                break;
+            case "getUserInfoById":
+                getUserInfoById($mysqli,$res);
+                break;
+            default:
+                errorMsgManager($res, "Not supported interface");
+        }
+
+
+        $mysqli->close();
+        header("Content-type:application/json");
+        echo json_encode($res);
+        die();
     }
 
     function userLogin($mysqli, &$res){
-        $posts = $_POST;
-        $password = $posts["password"];
-        $username = $posts["username"];
+        $password = $_POST["password"];
+        $username = $_POST["username"];
 
         $Q = "SELECT * FROM `users` WHERE `password` = '$password' AND `username` = '$username'";
         $result = $mysqli->query($Q);
@@ -76,9 +86,26 @@
     }
 
 
-    $mysqli->close();
-    header("Content-type:application/json");
-    echo json_encode($res);
-    die();
+    function getUserInfoById($mysqli, &$res){
+        if(!loginStatus()){
+            errorMsgManager($res, "Permission Deny, Login Required.");
+            return;
+        }
+        $user_id = $_POST['user_id'];
+        $Q = "SELECT * FROM users WHERE user_id = '$user_id'";
+        $result = $mysqli->query($Q);
+
+//        $users = array();
+//        while ($row = $result->fetch_assoc()){
+//            $users[] = $row;
+//        }
+//        $res['users'] = $users;
+
+        msgManager($res,$result);
+        if ($result) $res['user_info'] = $result->fetch_assoc();
+    }
+
+
+    main();
 ?>
 
