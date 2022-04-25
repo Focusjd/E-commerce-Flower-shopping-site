@@ -6,9 +6,7 @@
     $res = array('error'=>false);
     APIChecker($action, $res);
 
-function test($mysqli, &$res){
 
-}
 
     switch ($action){
         case "getAllUsers":

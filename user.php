@@ -9,6 +9,12 @@
 
 
         switch ($action){
+            case "userRegister":
+                userRegister($mysqli, $res);
+                break;
+            case "editUserInfo":
+                editUserInfo($mysqli, $res);
+                break;
             case "userLogin":
                 userLogin($mysqli, $res);
                 break;
@@ -138,7 +144,32 @@ function userLogin($mysqli, &$res){
         if ($result) $res['user_info'] = $result->fetch_assoc();
     }
 
+    function userRegister($mysqli, &$res){
 
+        $username = $_POST['username'];
+        $password = $_POST['password'];
+        $email = $_POST['email'];
+        $Q = "INSERT INTO users (username, password, useremail) VALUES ('$username', '$password', '$email')";
+        $result = $mysqli->query($Q);
+
+        msgManager($res,$result);
+    }
+
+
+    function editUserInfo($mysqli, &$res){
+        if(!loginStatus()){
+            errorMsgManager($res, "Permission Deny, User Login Required.");
+            return;
+        }
+        $user_id = $_POST['user_id'];
+        $username = $_POST['username'];
+        $password = $_POST['password'];
+        $email = $_POST['email'];
+        $Q = "UPDATE users SET username = '$username', password = '$password', useremail = '$email' WHERE user_id = '$user_id'";
+        $result = $mysqli->query($Q);
+
+        msgManager($res,$result);
+    }
     main();
 ?>
 

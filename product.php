@@ -58,7 +58,7 @@ function main(){
 
     function searchProductByName($mysqli, &$res)
     {
-        $search_name = $_POST['$search_name'];
+        $search_name = $_POST['search_name'];
         $Q = "SELECT * FROM product WHERE product_name like '$search_name%'";
         $result = $mysqli->query($Q);
 
