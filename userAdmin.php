@@ -1,28 +1,37 @@
 <?php
     require './utils.php';
 
-    $mysqli = dbInit();
-    $action = "";
-    $res = array('error'=>false);
-    APIChecker($action, $res);
+
+    function main(){
+        $mysqli = dbInit();
+        $action = "";
+        $res = array('error'=>false);
+        APIChecker($action, $res);
 
 
 
-    switch ($action){
-        case "getAllUsers":
-            getAllUsers($mysqli, $res);
-            break;
-        case "addUser":
-            addUser($mysqli, $res);
-            break;
-        case "editUser":
-            editUser($mysqli, $res);
-            break;
-        case "deleteUser":
-            deleteUser($mysqli, $res);
-            break;
-        default:
-            errorMsgManager($res, "Not supported interface");
+        switch ($action){
+            case "getAllUsers":
+                getAllUsers($mysqli, $res);
+                break;
+            case "addUser":
+                addUser($mysqli, $res);
+                break;
+            case "editUser":
+                editUser($mysqli, $res);
+                break;
+            case "deleteUser":
+                deleteUser($mysqli, $res);
+                break;
+            default:
+                errorMsgManager($res, "Not supported interface");
+        }
+
+        $mysqli->close();
+        header('Access-Control-Allow-Origin:*');
+        header("Content-type:application/json");
+        echo json_encode($res);
+        die();
     }
 
 
@@ -85,8 +94,5 @@
     }
 
 
-    $mysqli->close();
-    header("Content-type:application/json");
-    echo json_encode($res);
-    die();
+
 ?>
