@@ -75,7 +75,8 @@
         $username = $_POST['username'];
         $password = $_POST['password'];
         $email = $_POST['email'];
-        $Q = "UPDATE users SET username = '$username', password = '$password', useremail = '$email' WHERE user_id = '$user_id'";
+        $user_address = $_POST['user_address'];
+        $Q = "UPDATE users SET username = '$username', password = '$password', useremail = '$email', user_address = '$user_address' WHERE user_id = '$user_id'";
         $result = $mysqli->query($Q);
 
         msgManager($res,$result);
