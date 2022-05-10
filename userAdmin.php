@@ -94,6 +94,6 @@
         msgManager($res,$result);
     }
 
-
+    main();
 
 ?>
