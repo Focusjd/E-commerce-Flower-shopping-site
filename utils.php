@@ -40,7 +40,7 @@
     {
         $user = false;
         $login_flag = false;
-        session_start();
+        mySessionStart();
 
         (isset($_SESSION["user"]) && $_SESSION["user"] === true)?$login_flag = true:$_SESSION["user"] = false;
 
@@ -51,7 +51,8 @@
     {
         $admin = false;
         $admin_flag = false;
-        session_start();
+
+        mySessionStart();
 
         (isset($_SESSION["admin"]) && $_SESSION["admin"] === true)?$admin_flag = true:$_SESSION["admin"] = false;
 
@@ -59,11 +60,8 @@
     }
 
 
-    function sessionStart(){
-        //  启动 Session
-        session_start();
-        //  声明一个名为 admin 的变量，并赋空值。
-        $_SESSION["user"] = null;
+    function mySessionStart(){
+        if(session_status() != PHP_SESSION_ACTIVE)session_start();
     }
 
 ?>

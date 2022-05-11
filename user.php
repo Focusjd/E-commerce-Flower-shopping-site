@@ -57,7 +57,7 @@
 
 
         if ($result->num_rows>0) {
-            session_start();
+            mySessionStart();
             $_SESSION["admin"] = true;
 
             $lifeTime = 5 * 3600;
@@ -89,7 +89,7 @@ function userLogin($mysqli, &$res){
 //        $res['users'] = $users;
 
         if ($result->num_rows>0) {
-            session_start();
+            mySessionStart();
             $_SESSION["user"] = true;
             //  保存一天
             $lifeTime = 24 * 3600;
@@ -105,14 +105,14 @@ function userLogin($mysqli, &$res){
     }
 
     function userLogout(&$res){
-        session_start();
+        mySessionStart();
         unset($_SESSION['user']);
         session_destroy();
         msgManager($res,true);
     }
 
     function adminLogout(&$res){
-        session_start();
+        mySessionStart();
         unset($_SESSION['admin']);
         session_destroy();
         msgManager($res,true);
