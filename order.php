@@ -24,6 +24,9 @@
             case "deleteOrder":
                 deleteOrder($mysqli, $res);
                 break;
+            case "getAllOrders":
+                getAllOrders($mysqli, $res);
+                break;
             default:
                 errorMsgManager($res, "Not supported interface");
         }
@@ -35,6 +38,22 @@
         echo json_encode($res);
         die();
     }
+
+    function getAllOrders($mysqli, &$res){
+        if(!adminStatus()){
+            errorMsgManager($res, "Permission Deny, Admin Login Required.");
+            return;
+        }
+        $Q = "SELECT * FROM order";
+        $result = $mysqli->query($Q);
+
+        $users = array();
+        while ($row = $result->fetch_assoc()){
+            $users[] = $row;
+        }
+        $res['orders'] = $users;
+    }
+
 
     function deleteOrder($mysqli, &$res)
     {
