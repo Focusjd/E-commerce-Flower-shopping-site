@@ -44,14 +44,14 @@
             errorMsgManager($res, "Permission Deny, Admin Login Required.");
             return;
         }
-        $Q = "SELECT * FROM order";
+        $Q = "SELECT * FROM orders";
         $result = $mysqli->query($Q);
 
-        $users = array();
+        $orders = array();
         while ($row = $result->fetch_assoc()){
-            $users[] = $row;
+            array_push($orders, $row);
         }
-        $res['orders'] = $users;
+        $res['orders'] = $orders;
     }
 
 
