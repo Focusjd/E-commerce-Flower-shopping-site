@@ -49,7 +49,7 @@
 
         $orders = array();
         while ($row = $result->fetch_assoc()){
-            array_push($orders, $row);
+            $orders[] = $row;
         }
         $res['orders'] = $orders;
     }
